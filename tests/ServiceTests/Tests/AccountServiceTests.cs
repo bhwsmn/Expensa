@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -19,7 +18,6 @@ namespace ServiceTests.Tests
         {
             var repository = new Bootstrap().GetService<Account, AccountQueryModel>();
             var account = AccountMockData.Accounts.FirstOrDefault();
-
             await repository.CreateAsync(account);
 
             Assert.NotEqual(Guid.Empty, account.Id);
@@ -72,7 +70,7 @@ namespace ServiceTests.Tests
                 await repository.GetFilteredAsync(new AccountQueryModel {CultureName = cultureName});
 
             Assert.Empty(noQueryResult);
-            Assert.Equal(2, queryWithUserIdResult.Count());
+            Assert.Equal(accounts.Count(), queryWithUserIdResult.Count());
             Assert.Single(queryWithAccountNameResult);
             Assert.Single(queryWithCultureNameResult);
         }
