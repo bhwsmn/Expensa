@@ -38,7 +38,7 @@ namespace Services.Classes
             return entity;
         }
 
-        public virtual async Task<IEnumerable<TEntity>> GetFilteredAsync(TQueryModel filterQuery)
+        public virtual Task<IEnumerable<TEntity>> GetFilteredAsync(TQueryModel filterQuery)
         {
             // Needs to be implemented manually for each Entity type
             throw new NotImplementedException();

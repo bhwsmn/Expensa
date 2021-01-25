@@ -61,7 +61,7 @@ namespace ServiceTests.Tests
 
             var noQueryResult = await repository.GetFilteredAsync(null);
             var queryWithUserIdResult =
-                await repository.GetFilteredAsync(new CategoryQueryModel {UserId = userId});
+                await repository.GetFilteredAsync(new CategoryQueryModel {ApplicationUserId = userId});
             var queryWithAccountNameResult =
                 await repository.GetFilteredAsync(new CategoryQueryModel {Name = categoryName});
 

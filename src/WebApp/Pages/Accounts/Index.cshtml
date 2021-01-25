@@ -1,0 +1,45 @@
+@page
+@model WebApp.Pages.Accounts.Index
+
+@{
+    ViewData["Title"] = "Accounts List";
+}
+
+<div class="section-header">
+    <h1>@ViewData["Title"]</h1>
+</div>
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4>Basic DataTables</h4>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped" id="table-1">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Account Name</th>
+                            <th>Action</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach (var outputDto in Model.OutputDtos)
+                        {
+                            <tr>
+                                <td>@outputDto.Id</td>
+                                <td>@outputDto.Name</td>
+                                <td>
+                                    <a asp-page="/Accounts/Edit" asp-route-id="@outputDto.Id" class="btn btn-primary">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

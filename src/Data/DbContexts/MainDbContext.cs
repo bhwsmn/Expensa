@@ -9,6 +9,7 @@ namespace Data.DbContexts
         public DbSet<Account> Accounts { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Entry> Entries { get; set; }
+        public DbSet<Preference> Preferences { get; set; }
 
         public MainDbContext(DbContextOptions<MainDbContext> options) : base(options)
         {

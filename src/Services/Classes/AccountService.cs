@@ -27,16 +27,12 @@ namespace Services.Classes
 
             var query = _context.Accounts
                 .ConditionalWhere(
-                    () => filterQuery.UserId != default,
-                    account => account.User.Id == filterQuery.UserId
+                    () => filterQuery.ApplicationUserId != default,
+                    account => account.ApplicationUser.Id == filterQuery.ApplicationUserId
                 )
                 .ConditionalWhere(
                     () => filterQuery.Name != default,
                     account => account.Name.ToLower().Contains(filterQuery.Name.ToLower())
-                )
-                .ConditionalWhere(
-                    () => filterQuery.CultureName != default,
-                    account => account.CultureName == filterQuery.CultureName
                 );
 
             var accounts = await query.OrderBy(account => account.Name).ToListAsync();

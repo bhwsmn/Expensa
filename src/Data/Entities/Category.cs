@@ -7,6 +7,6 @@ namespace Data.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public IdentityUser User { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

@@ -53,7 +53,6 @@ namespace ServiceTests.Tests
             var repository = new Bootstrap().GetService<Account, AccountQueryModel>();
             var userId = UserMockData.Users.FirstOrDefault().Id;
             var accountName = AccountMockData.Accounts.FirstOrDefault().Name;
-            var cultureName = CultureInfo.GetCultureInfo("en-GB").Name;
             var accounts = AccountMockData.Accounts;
 
             foreach (var account in accounts)
@@ -63,16 +62,13 @@ namespace ServiceTests.Tests
 
             var noQueryResult = await repository.GetFilteredAsync(null);
             var queryWithUserIdResult =
-                await repository.GetFilteredAsync(new AccountQueryModel {UserId = userId});
+                await repository.GetFilteredAsync(new AccountQueryModel {ApplicationUserId = userId});
             var queryWithAccountNameResult =
                 await repository.GetFilteredAsync(new AccountQueryModel {Name = accountName});
-            var queryWithCultureNameResult =
-                await repository.GetFilteredAsync(new AccountQueryModel {CultureName = cultureName});
 
             Assert.Empty(noQueryResult);
             Assert.Equal(accounts.Count(), queryWithUserIdResult.Count());
             Assert.Single(queryWithAccountNameResult);
-            Assert.Single(queryWithCultureNameResult);
         }
 
         [Fact]
@@ -99,22 +95,18 @@ namespace ServiceTests.Tests
             await repository.CreateAsync(account);
 
             var originalAccountName = account.Name;
-            var originalCultureName = account.CultureName;
             var updatedAccountName = "Updated Account Name";
             var updatedCultureName = CultureInfo.GetCultureInfo("en-CA").Name;
 
             var updateDictionary = new Dictionary<string, dynamic>
             {
-                {nameof(account.Name), updatedAccountName},
-                {nameof(account.CultureName), updatedCultureName}
+                {nameof(account.Name), updatedAccountName}
             };
 
             await repository.UpdateAsync(account.Id, updateDictionary);
 
             Assert.NotEqual(originalAccountName, account.Name);
-            Assert.NotEqual(originalCultureName, account.CultureName);
             Assert.Equal(updatedAccountName, account.Name);
-            Assert.Equal(updatedCultureName, account.CultureName);
         }
 
         [Fact]

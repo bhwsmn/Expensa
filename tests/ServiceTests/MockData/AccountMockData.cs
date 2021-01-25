@@ -11,14 +11,12 @@ namespace ServiceTests.MockData
         {
             new Account
             {
-                User = UserMockData.Users.FirstOrDefault(),
-                CultureName = CultureInfo.CurrentCulture.Name,
+                ApplicationUser = UserMockData.Users.FirstOrDefault(),
                 Name = "Mock Account"
             },
             new Account
             {
-                User = UserMockData.Users.FirstOrDefault(),
-                CultureName = CultureInfo.GetCultureInfo("en-GB").Name
+                ApplicationUser = UserMockData.Users.FirstOrDefault()
             }
         };
     }

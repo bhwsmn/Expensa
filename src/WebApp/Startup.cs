@@ -1,10 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO.Compression;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutomapperProfiles.Profiles;
 using Data.DbContexts;
+using Data.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -16,7 +19,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Models.Constants;
+using Models.Query;
 using Npgsql;
+using Services.Classes;
+using Services.Interfaces;
+using Utility;
 
 namespace WebApp
 {
@@ -58,7 +65,7 @@ namespace WebApp
                     });
             });
 
-            services.AddIdentity<IdentityUser, IdentityRole>()
+            services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<MainDbContext>()
                 .AddRoles<IdentityRole>();
 
@@ -74,9 +81,15 @@ namespace WebApp
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
                 options.SlidingExpiration = true;
                 options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.LoginPath = "/Login";
+                options.LogoutPath = "/Logout";
             });
+
+            services.AddScoped<IBaseService<Account, AccountQueryModel>, AccountService>();
+            services.AddScoped<IBaseService<Category, CategoryQueryModel>, CategoryService>();
+            services.AddScoped<IBaseService<Entry, EntryQueryModel>, EntryService>();
             
-            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+            services.AddAutoMapper(typeof(AccountProfile));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -93,6 +106,8 @@ namespace WebApp
                 app.UseHsts();
             }
 
+            BootstrapStaticClasses();
+
             app.UseHttpsRedirection();
             
             app.UseResponseCompression();
@@ -101,9 +116,19 @@ namespace WebApp
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => { endpoints.MapRazorPages(); });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapRazorPages().RequireAuthorization();
+            });
+        }
+
+        private static void BootstrapStaticClasses()
+        {
+            CurrencyInfo.GenerateAll();
         }
     }
 }

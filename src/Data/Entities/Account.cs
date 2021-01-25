@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using Microsoft.AspNetCore.Identity;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Data.Entities
 {
@@ -8,8 +8,11 @@ namespace Data.Entities
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public string CultureName { get; set; }
-        public virtual IdentityUser User { get; set; }
-        public ICollection<Entry> Entries { get; set; }
+        public string ApplicationUserId { get; set; }
+
+        [ForeignKey(nameof(ApplicationUserId))]
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
+        public virtual ICollection<Entry> Entries { get; set; }
     }
 }

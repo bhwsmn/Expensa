@@ -1,0 +1,82 @@
+@page
+@model WebApp.Pages.Login
+
+@{
+    Layout = null;
+    ViewData["Title"] = "Login";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, shrink-to-fit=no" name="viewport">
+    <title>Expensa - @ViewData["Title"]</title>
+
+    <partial name="_CssPartial"/>
+</head>
+<body>
+
+<div id="app">
+    <section class="section">
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-12 col-sm-10 offset-sm-1 col-md-8 offset-md-2 col-lg-8 offset-lg-2 col-xl-8 offset-xl-2">
+                    <div class="login-brand">
+                        <img src="@Url.Content("~/assets/img/icon-fill.svg")" alt="logo" width="100" class="shadow-light rounded-circle">
+                    </div>
+
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h4>@ViewData["Title"]</h4>
+                        </div>
+
+                        <div class="card-body">
+                            <form method="POST">
+                                
+                                <div class="form-group">
+                                    <label asp-for="InputDto.Username"></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-user"></i>
+                                            </div>
+                                        </div>
+                                        <input asp-for="InputDto.Username" class="form-control">
+                                    </div>
+                                    <span asp-validation-for="InputDto.Username" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <label asp-for="InputDto.Password"></label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text">
+                                                <i class="fas fa-lock"></i>
+                                            </div>
+                                        </div>
+                                        <input asp-for="InputDto.Password" class="form-control">
+                                    </div>
+                                    <span asp-validation-for="InputDto.Password" class="text-danger"></span>
+                                </div>
+
+                                <div class="form-group">
+                                    <button type="submit" class="btn btn-primary btn-lg btn-block">
+                                        Login
+                                    </button>
+                                </div>
+                                
+                                <span asp-validation-for="SignInError" class="text-danger text-md-left mt-4"></span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<partial name="Shared/_JavascriptPartial"/>
+<partial name="_ValidationScriptsPartial"/>
+</body>

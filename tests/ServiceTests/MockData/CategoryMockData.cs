@@ -10,12 +10,12 @@ namespace ServiceTests.MockData
         {
             new Category
             {
-                User = UserMockData.Users.FirstOrDefault(),
+                ApplicationUser = UserMockData.Users.FirstOrDefault(),
                 Name = "Mock Category"
             },
             new Category
             {
-                User = UserMockData.Users.FirstOrDefault(),
+                ApplicationUser = UserMockData.Users.FirstOrDefault(),
                 Name = "Second Mock Category"
             },
         };
