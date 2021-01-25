@@ -6,6 +6,7 @@ namespace Models.DTO.Input
     {
         public decimal Amount { get; set; }
         public DateTime DateTime { get; set; }
+        public string Note { get; set; }
         public virtual Guid CategoryId { get; set; }
     }
 }

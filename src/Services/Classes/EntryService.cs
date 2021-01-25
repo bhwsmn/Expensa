@@ -49,6 +49,10 @@ namespace Services.Classes
                 .ConditionalWhere(
                     () => filterQuery.ToDateTime != default,
                     entry => entry.DateTime <= filterQuery.ToDateTime
+                )
+                .ConditionalWhere(
+                    () => filterQuery.Note != default,
+                    entry => entry.Note.ToLower().Contains(filterQuery.Note.ToLower())
                 );
 
             var entries = await query.OrderByDescending(entry => entry.DateTime).ToListAsync();

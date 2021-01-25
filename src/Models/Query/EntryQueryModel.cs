@@ -10,5 +10,6 @@ namespace Models.Query
         public decimal MaxAmount { get; set; }
         public DateTime FromDateTime { get; set; }
         public DateTime ToDateTime { get; set; }
+        public string Note { get; set; }
     }
 }
