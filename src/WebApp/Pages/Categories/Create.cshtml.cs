@@ -10,19 +10,19 @@ using Models.DTO.Input;
 using Models.Query;
 using Services.Interfaces;
 
-namespace WebApp.Pages.Accounts
+namespace WebApp.Pages.Categories
 {
     public class Create : PageModel
     {
-        private readonly IBaseService<Account, AccountQueryModel> _accountService;
+        private readonly IBaseService<Category, CategoryQueryModel> _categoryService;
         private readonly IMapper _mapper;
 
-        [BindProperty] public AccountInputDto InputDto { get; set; }
+        [BindProperty] 
+        public CategoryInputDto InputDto { get; set; }
 
-        public Create(IBaseService<Account, AccountQueryModel> accountService, IMapper mapper
-        )
+        public Create(IBaseService<Category, CategoryQueryModel> categoryService, IMapper mapper)
         {
-            _accountService = accountService;
+            _categoryService = categoryService;
             _mapper = mapper;
         }
 
@@ -33,13 +33,13 @@ namespace WebApp.Pages.Accounts
                 return Page();
             }
             
-            var account = _mapper.Map<Account>(InputDto);
-            account.ApplicationUserId = HttpContext.User.Claims
+            var category = _mapper.Map<Category>(InputDto);
+            category.ApplicationUserId = HttpContext.User.Claims
                 .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value;
 
-            await _accountService.CreateAsync(account);
+            await _categoryService.CreateAsync(category);
 
-            return RedirectToPage("/Accounts/Index");
+            return RedirectToPage("/Categories/Index");
         }
     }
 }

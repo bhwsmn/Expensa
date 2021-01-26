@@ -10,6 +10,7 @@ namespace AutomapperProfiles.Profiles
         public AccountProfile()
         {
             CreateMap<AccountInputDto, Account>();
+            CreateMap<Account, AccountInputDto>();
             CreateMap<Account, AccountOutputDto>();
         }
     }

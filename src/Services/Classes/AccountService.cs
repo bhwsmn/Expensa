@@ -27,6 +27,10 @@ namespace Services.Classes
 
             var query = _context.Accounts
                 .ConditionalWhere(
+                    () => filterQuery.Id != default,
+                    account => account.Id == filterQuery.Id
+                ) 
+                .ConditionalWhere(
                     () => filterQuery.ApplicationUserId != default,
                     account => account.ApplicationUser.Id == filterQuery.ApplicationUserId
                 )

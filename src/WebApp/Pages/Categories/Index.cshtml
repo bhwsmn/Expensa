@@ -1,8 +1,8 @@
 @page
-@model WebApp.Pages.Accounts.Index
+@model WebApp.Pages.Categories.Index
 
 @{
-    ViewData["Title"] = "Accounts List";
+    ViewData["Title"] = "Categories List";
 }
 
 <div class="section-header">
@@ -14,7 +14,7 @@
         <div class="card">
             <div class="card-header">
                 @* <h4>Basic DataTables</h4> *@
-                <a asp-page="/Accounts/Create" class="btn btn-icon icon-left btn-success"><i class="fas fa-plus"></i> Create New</a>
+                <a asp-page="/Categories/Create" class="btn btn-icon icon-left btn-success"><i class="fas fa-plus"></i> Create New</a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">
@@ -22,7 +22,7 @@
                         <thead>
                         <tr>
                             <th>ID</th>
-                            <th>Account Name</th>
+                            <th>Category Name</th>
                             <th>Action</th>
                         </tr>
                         </thead>
@@ -33,7 +33,7 @@
                                 <td>@outputDto.Id</td>
                                 <td>@outputDto.Name</td>
                                 <td>
-                                    <a asp-page="/Accounts/Edit" asp-route-id="@outputDto.Id" class="btn btn-icon icon-left btn-primary"><i class="fas fa-edit"></i> Edit</a>
+                                    <a asp-page="/Categories/Edit" asp-route-id="@outputDto.Id" class="btn btn-icon icon-left btn-primary"><i class="fas fa-edit"></i> Edit</a>
                                 </td>
                             </tr>
                         }

@@ -27,6 +27,10 @@ namespace Services.Classes
 
             var query = _context.Categories
                 .ConditionalWhere(
+                    () => filterQuery.Id != default,
+                    category => category.Id == filterQuery.Id
+                )
+                .ConditionalWhere(
                     () => filterQuery.ApplicationUserId != default,
                     category => category.ApplicationUser.Id == filterQuery.ApplicationUserId
                 )

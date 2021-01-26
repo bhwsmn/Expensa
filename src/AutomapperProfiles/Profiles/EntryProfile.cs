@@ -10,6 +10,7 @@ namespace AutomapperProfiles.Profiles
         public EntryProfile()
         {
             CreateMap<EntryInputDto, Entry>();
+            CreateMap<Entry, EntryInputDto>();
             CreateMap<Entry, EntryOutputDto>();
         }
     }

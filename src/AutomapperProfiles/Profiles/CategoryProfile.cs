@@ -10,6 +10,7 @@ namespace AutomapperProfiles.Profiles
         public CategoryProfile()
         {
             CreateMap<CategoryInputDto, Category>();
+            CreateMap<Category, CategoryInputDto>();
             CreateMap<Category, CategoryOutputDto>();
         }
     }

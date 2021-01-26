@@ -11,38 +11,38 @@ using Models.DTO.Input;
 using Models.Query;
 using Services.Interfaces;
 
-namespace WebApp.Pages.Accounts
+namespace WebApp.Pages.Categories
 {
     public class Edit : PageModel
     {
-        private readonly IBaseService<Account, AccountQueryModel> _accountService;
+        private readonly IBaseService<Category, CategoryQueryModel> _categoryService;
         private readonly IMapper _mapper;
 
         [BindProperty] 
-        public AccountInputDto InputDto { get; set; }
+        public CategoryInputDto InputDto { get; set; }
 
-        public Edit(IBaseService<Account, AccountQueryModel> accountService, IMapper mapper)
+        public Edit(IBaseService<Category, CategoryQueryModel> category, IMapper mapper)
         {
-            _accountService = accountService;
+            _categoryService = category;
             _mapper = mapper;
         }
 
         public async Task<IActionResult> OnGetAsync()
         {
-            var account = (await _accountService.GetFilteredAsync(
-                new AccountQueryModel
+            var category = (await _categoryService.GetFilteredAsync(
+                new CategoryQueryModel
                 {
                     Id = Guid.Parse(RouteData.Values["id"]?.ToString()),
                     ApplicationUserId = HttpContext.User.Claims
                         .FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier)?.Value
                 })).FirstOrDefault();
 
-            if (account == null)
+            if (category == null)
             {
                 return NotFound();
             }
 
-            InputDto = _mapper.Map<AccountInputDto>(account);
+            InputDto = _mapper.Map<CategoryInputDto>(category);
 
             return Page();
         }
@@ -56,17 +56,17 @@ namespace WebApp.Pages.Accounts
 
             var id = Guid.Parse(RouteData.Values["id"].ToString());
             var updateDictionary = new Dictionary<string, dynamic> {{nameof(Account.Name), InputDto.Name}};
-            await _accountService.UpdateAsync(id, updateDictionary);
+            await _categoryService.UpdateAsync(id, updateDictionary);
 
-            return RedirectToPage("/Accounts/Edit", new {id});
+            return RedirectToPage("/Categories/Edit", new {id});
         }
 
         public async Task<IActionResult> OnPostDeleteAsync()
         {
             var id = Guid.Parse(RouteData.Values["id"].ToString());
-            await _accountService.DeleteAsync(id);
+            await _categoryService.DeleteAsync(id);
 
-            return RedirectToPage("/Accounts/Index");
+            return RedirectToPage("/Categories/Index");
         }
     }
 }
