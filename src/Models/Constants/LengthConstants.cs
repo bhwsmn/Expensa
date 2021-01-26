@@ -8,5 +8,6 @@ namespace Models.Constants
         public const int MaximumPasswordLength = 128;
         public const int MinimumNameLength = 1;
         public const int MaximumNameLength = 100;
+        public const int MaximumNoteLength = 250;
     }
 }

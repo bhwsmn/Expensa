@@ -220,7 +220,8 @@ namespace WebApp.Migrations
                     DateTime = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
                     Note = table.Column<string>(type: "text", nullable: true),
                     CategoryId = table.Column<Guid>(type: "uuid", nullable: false),
-                    AccountId = table.Column<Guid>(type: "uuid", nullable: true)
+                    AccountId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ApplicationUserId = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -229,6 +230,12 @@ namespace WebApp.Migrations
                         name: "FK_Entries_Accounts_AccountId",
                         column: x => x.AccountId,
                         principalTable: "Accounts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Entries_AspNetUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "AspNetUsers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
@@ -295,6 +302,11 @@ namespace WebApp.Migrations
                 name: "IX_Entries_AccountId",
                 table: "Entries",
                 column: "AccountId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Entries_ApplicationUserId",
+                table: "Entries",
+                column: "ApplicationUserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Entries_CategoryId",

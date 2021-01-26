@@ -63,11 +63,14 @@ namespace WebApp.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uuid");
 
-                    b.Property<Guid?>("AccountId")
+                    b.Property<Guid>("AccountId")
                         .HasColumnType("uuid");
 
                     b.Property<decimal>("Amount")
                         .HasColumnType("numeric");
+
+                    b.Property<string>("ApplicationUserId")
+                        .HasColumnType("text");
 
                     b.Property<Guid>("CategoryId")
                         .HasColumnType("uuid");
@@ -81,6 +84,8 @@ namespace WebApp.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("AccountId");
+
+                    b.HasIndex("ApplicationUserId");
 
                     b.HasIndex("CategoryId");
 
@@ -335,7 +340,13 @@ namespace WebApp.Migrations
                 {
                     b.HasOne("Data.Entities.Account", "Account")
                         .WithMany("Entries")
-                        .HasForeignKey("AccountId");
+                        .HasForeignKey("AccountId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Data.Entities.ApplicationUser", "ApplicationUser")
+                        .WithMany()
+                        .HasForeignKey("ApplicationUserId");
 
                     b.HasOne("Data.Entities.Category", "Category")
                         .WithMany()
@@ -344,6 +355,8 @@ namespace WebApp.Migrations
                         .IsRequired();
 
                     b.Navigation("Account");
+
+                    b.Navigation("ApplicationUser");
 
                     b.Navigation("Category");
                 });

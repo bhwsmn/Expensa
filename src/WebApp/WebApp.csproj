@@ -161,7 +161,6 @@
     </ItemGroup>
 
     <ItemGroup>
-      <Folder Include="Pages\Entries" />
       <Folder Include="Pages\Settings" />
     </ItemGroup>
     

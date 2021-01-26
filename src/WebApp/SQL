@@ -108,9 +108,11 @@ CREATE TABLE "Entries" (
     "DateTime" timestamp without time zone NOT NULL,
     "Note" text NULL,
     "CategoryId" uuid NOT NULL,
-    "AccountId" uuid NULL,
+    "AccountId" uuid NOT NULL,
+    "ApplicationUserId" text NULL,
     CONSTRAINT "PK_Entries" PRIMARY KEY ("Id"),
-    CONSTRAINT "FK_Entries_Accounts_AccountId" FOREIGN KEY ("AccountId") REFERENCES "Accounts" ("Id") ON DELETE RESTRICT,
+    CONSTRAINT "FK_Entries_Accounts_AccountId" FOREIGN KEY ("AccountId") REFERENCES "Accounts" ("Id") ON DELETE CASCADE,
+    CONSTRAINT "FK_Entries_AspNetUsers_ApplicationUserId" FOREIGN KEY ("ApplicationUserId") REFERENCES "AspNetUsers" ("Id") ON DELETE RESTRICT,
     CONSTRAINT "FK_Entries_Categories_CategoryId" FOREIGN KEY ("CategoryId") REFERENCES "Categories" ("Id") ON DELETE CASCADE
 );
 
@@ -136,10 +138,12 @@ CREATE INDEX "IX_Categories_ApplicationUserId" ON "Categories" ("ApplicationUser
 
 CREATE INDEX "IX_Entries_AccountId" ON "Entries" ("AccountId");
 
+CREATE INDEX "IX_Entries_ApplicationUserId" ON "Entries" ("ApplicationUserId");
+
 CREATE INDEX "IX_Entries_CategoryId" ON "Entries" ("CategoryId");
 
 INSERT INTO "__EFMigrationsHistory" ("MigrationId", "ProductVersion")
-VALUES ('20210125132131_Init', '5.0.2');
+VALUES ('20210126052406_Init', '5.0.2');
 
 COMMIT;
 

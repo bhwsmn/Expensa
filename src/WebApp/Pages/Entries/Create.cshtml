@@ -1,0 +1,79 @@
+@page
+@model WebApp.Pages.Entries.Create
+
+@{
+    ViewData["Title"] = "Create Entry";
+}
+
+<div class="section-header">
+    <h1>@ViewData["Title"]</h1>
+</div>
+
+<form method="POST">
+    <div class="row">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h4>Create New Entry</h4>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-group row mb-4">
+                        <label asp-for="InputDto.Amount" class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                        <div class="col-sm-12 col-md-7">
+                            <input asp-for="InputDto.Amount" class="form-control">
+                            <span asp-validation-for="InputDto.Amount" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                        <label asp-for="InputDto.DateTime" class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                        <div class="col-sm-12 col-md-7">
+                            <input asp-for="InputDto.DateTime" class="form-control datetimepicker">
+                            <span asp-validation-for="InputDto.DateTime" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                        <label asp-for="InputDto.Note" class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                        <div class="col-sm-12 col-md-7">
+                            <input asp-for="InputDto.Note" class="form-control">
+                            <span asp-validation-for="InputDto.Note" class="text-danger"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                        <label asp-for="InputDto.AccountId" class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                        <div class="col-sm-12 col-md-7">
+                            <select asp-for="InputDto.AccountId" class="form-control select2">
+                                @foreach (var accountOutputDto in Model.AccountOutputDtos)
+                                {
+                                    <option value="@accountOutputDto.Id">@accountOutputDto.Name (@accountOutputDto.Id)</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                        <label asp-for="InputDto.CategoryId" class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                        <div class="col-sm-12 col-md-7">
+                            <select asp-for="InputDto.CategoryId" class="form-control select2">
+                                @foreach (var categoryOutput in Model.CategoryOutputDtos)
+                                {
+                                    <option value="@categoryOutput.Id">@categoryOutput.Name (@categoryOutput.Id)</option>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group row mb-4">
+                        <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3"></label>
+                        <div class="col-sm-12 col-md-7">
+                            <button class="btn btn-primary">Create</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
